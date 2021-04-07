@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import logoImg from "../image/logo.svg";
-import signIn from "../image/sign.svg";
+// import logoImg from "../image/logo.svg";
+import logoImg from "../image/sushi/logo.svg";
+// import signIn from "../image/sign.svg";
+import signIn from "../image/sushi/samurai.svg";
 
 const NavBarStyled = styled.header`
   position: fixed;
@@ -14,7 +16,7 @@ const NavBarStyled = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  background-color: #299b01;
+  background-color: rgb(23, 14, 9, 0.7);
   color: white;
 `;
 
@@ -29,17 +31,16 @@ const H1 = styled.h1`
 `;
 const ImgLogo = styled.img`
   width: 50px;
+  height: 50px;
+  object-fit: cover;
 `;
 
-const SigninBtnWrapper = styled.button`
+const Login = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-right: 37px;
   background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
   font-size: 16px;
   line-height: 19px;
   color: #fff;
@@ -54,11 +55,11 @@ export const NavBar = () => (
   <NavBarStyled>
     <Logo>
       <ImgLogo src={logoImg} alt="logo" />
-      <H1>MrDonald's</H1>
-    </Logo>
-    <SigninBtnWrapper>
+      <H1> SushiLand</H1>{" "}
+    </Logo>{" "}
+    <Login>
       <SigninBtnImg src={signIn} alt="signin" />
       Enter
-    </SigninBtnWrapper>
+    </Login>{" "}
   </NavBarStyled>
 );
