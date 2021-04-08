@@ -10,4 +10,9 @@ cursor: pointer;
 background-color: #281208;
 color: #fff;
 font-size: 18px;
+transition: all 0.4s;
+&:hover {
+  background-color: #dfaa83;
+  color: #000;
+}
 `;

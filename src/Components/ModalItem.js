@@ -29,7 +29,7 @@ const Banner = styled.div`
   margin-bottom: 20px;
 `;
 
-const ModalInner = styled.div`
+const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,7 +38,7 @@ const ModalInner = styled.div`
   padding: 10px 15px;
 `;
 
-const TopWrapper = styled.div`
+const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -66,20 +66,21 @@ export const ModalItem = ({ openItem, setOpenItem }) => {
   return (
     <Overlay id="overlay" onClick={closeModal}>
       <Modal>
-        <Banner img={openItem.img} />
-        <ModalInner>
-          <TopWrapper>
-            <ModalHeader>{openItem.name}</ModalHeader>
+        <Banner img={openItem.img} />{" "}
+        <Content>
+          <HeaderContent>
+            <ModalHeader> {openItem.name} </ModalHeader>{" "}
             <Price>
+              {" "}
               {openItem.price.toLocaleString("en-IN", {
                 style: "currency",
                 currency: "AED",
-              })}
-            </Price>
-          </TopWrapper>
-          <Button>Add to cart</Button>
-        </ModalInner>
-      </Modal>
+              })}{" "}
+            </Price>{" "}
+          </HeaderContent>
+          <Button> Add to cart </Button>{" "}
+        </Content>{" "}
+      </Modal>{" "}
     </Overlay>
   );
 };

@@ -3,6 +3,7 @@ import { NavBar } from "./Components/Navbar";
 import { Menu } from "./Components/Menu";
 import { GlobalStyle } from "./Components/GlobalStyle";
 import { ModalItem } from "./Components/ModalItem";
+import { Order } from "./Components/Order";
 
 function App() {
   const [openItem, setOpenItem] = React.useState(null);
@@ -12,8 +13,9 @@ function App() {
     <React.Fragment>
       <GlobalStyle />
       <NavBar />
-      <Menu setOpenItem={setOpenItem} />
-      <ModalItem openItem={openItem} setOpenItem={setOpenItem} />
+      <Order />
+      <Menu setOpenItem={setOpenItem} />{" "}
+      <ModalItem openItem={openItem} setOpenItem={setOpenItem} />{" "}
     </React.Fragment>
   );
 }
