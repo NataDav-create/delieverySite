@@ -46,19 +46,18 @@ const Price = styled.p`
   color: #fff;
 `;
 
-export const ListItem = ({ itemList }) => (
+export const ListItem = ({ itemList, setOpenItem }) => (
   <List>
     {" "}
     {itemList.map((item) => {
       return (
-        <Item key={item.id} img={item.img}>
+        <Item key={item.id} img={item.img} onClick={() => setOpenItem(item)}>
           <p> {item.name} </p>{" "}
           <Price>
-            {" "}
             {item.price.toLocaleString("en-IN", {
               style: "currency",
               currency: "AED",
-            })}{" "}
+            })}
           </Price>{" "}
         </Item>
       );
