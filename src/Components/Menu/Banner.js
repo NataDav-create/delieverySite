@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import bgImg from "../image/sushi/1.jpg";
+import bgImg from "../../image/sushi/1.jpg";
 
 export const Banner = styled.div `
   width: 100%;

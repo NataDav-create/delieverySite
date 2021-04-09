@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 // import logoImg from "../image/logo.svg";
-import logoImg from "../image/sushi/logo.svg";
+import logoImg from "../../image/sushi/logo.svg";
 // import signIn from "../image/sign.svg";
-import signIn from "../image/sushi/samurai.svg";
+import signIn from "../../image/sushi/samurai.svg";
 
 const NavBarStyled = styled.header`
   position: fixed;
@@ -11,7 +11,7 @@ const NavBarStyled = styled.header`
   left: 0;
   z-index: 999;
   height: 80px;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,11 +55,11 @@ export const NavBar = () => (
   <NavBarStyled>
     <Logo>
       <ImgLogo src={logoImg} alt="logo" />
-      <H1> SushiLand</H1>{" "}
+      <H1> SushiLand </H1>{" "}
     </Logo>{" "}
     <Login>
       <SigninBtnImg src={signIn} alt="signin" />
-      Enter
+      Enter{" "}
     </Login>{" "}
   </NavBarStyled>
 );

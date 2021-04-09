@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import dbMenu from "./DBMenu2";
+import dbMenu from "../DBMenu2";
 import { ListItem } from "./ListItem";
-import mainBg from "../image/sushi/bg-5.jpg";
+import mainBg from "../../image/sushi/bg-5.jpg";
 import { Banner } from "./Banner";
 
 const Container = styled.div`
@@ -39,9 +39,9 @@ export const Menu = ({ setOpenItem }) => (
   <MenuStyled>
     <Banner>
       {" "}
-      <MainTitle> Traditional Rolls </MainTitle>
-      <MainSubtitle>Original and The Best</MainSubtitle>
-    </Banner>
+      <MainTitle> Traditional Rolls </MainTitle>{" "}
+      <MainSubtitle> Original and The Best </MainSubtitle>{" "}
+    </Banner>{" "}
     <Container>
       <SectionMenu>
         <h2> Rolls </h2>{" "}
