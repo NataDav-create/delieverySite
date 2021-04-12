@@ -1,14 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  Button
-}
-from "../Style/Button";
-import {
-  OrderListItem
-} from "./OrderListItem";
+import { Button } from "../Style/Button";
+import { OrderListItem } from "./OrderListItem";
+import { totalPriceItems } from "../functions/secondaryFunction";
+import { formatCurrency } from "../functions/secondaryFunction";
 
-const OrderStyled = styled.section `
+const OrderStyled = styled.section`
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -22,71 +19,65 @@ const OrderStyled = styled.section `
   z-index: 20;
 `;
 
-const OrderTitle = styled.h2 `
+const OrderTitle = styled.h2`
   text-align: center;
   margin-bottom: 30px;
 `;
 
-const OrderContent = styled.div `
+const OrderContent = styled.div`
   flex-grow: 1;
 `;
 
-const OrderList = styled.ul ``;
+const OrderList = styled.ul``;
 
-const Total = styled.div `
+const Total = styled.div`
   display: flex;
   align-items: flex-end;
   margin: 0 35px 30px;
   font-weight: 400;
 `;
 
-const TotalHeading = styled.h3 `
+const TotalHeading = styled.h3`
   font-size: 30px;
   flex-grow: 1;
 `;
 
-const TotalPrice = styled.span `
+const TotalPrice = styled.span`
   text-align: right;
   min-width: 65px;
   margin-left: 20px;
 `;
 
-const EmptyList = styled.p `
+const EmptyList = styled.p`
   text-align: center;
 `;
 
-export const Order = ({
-  orders
-}) => {
-  return ( <
-    OrderStyled >
-    <
-    OrderTitle > Your Order < /OrderTitle>{" "} <
-    OrderContent > {
-      orders.length ? ( <
-        OrderList > {
-          orders.map((order) => ( <
-            OrderListItem order = {
-              order
-            } > < /OrderListItem>
-          ))
-        } <
-        /OrderList>
-      ) : ( <
-        EmptyList > There are no orders still < /EmptyList>
-      )
-    } <
-    /OrderContent>{" "} <
-    Total >
-    <
-    TotalHeading > Total: < /TotalHeading> <span> 6 </span > {
-      " "
-    } <
-    TotalPrice > 180 < /TotalPrice>{" "} < /
-    Total > {
-      " "
-    } <
-    Button > Make an Order < /Button>{" "} < /
-    OrderStyled >
+export const Order = ({ orders }) => {
+  const total = orders.reduce(
+    (result, order) => totalPriceItems(order) + result,
+    0
+  );
+  return (
+    <OrderStyled>
+      <OrderTitle> Your Order </OrderTitle>{" "}
+      <OrderContent>
+        {" "}
+        {orders.length ? (
+          <OrderList>
+            {" "}
+            {orders.map((order) => (
+              <OrderListItem order={order}> </OrderListItem>
+            ))}{" "}
+          </OrderList>
+        ) : (
+          <EmptyList> There are no orders still </EmptyList>
+        )}{" "}
+      </OrderContent>{" "}
+      <Total>
+        <TotalHeading> Total: </TotalHeading> <span> 6 </span>{" "}
+        <TotalPrice>{formatCurrency(total)}</TotalPrice>{" "}
+      </Total>{" "}
+      <Button> Make an Order </Button>{" "}
+    </OrderStyled>
   );
 };

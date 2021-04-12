@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import trashImage from "../../image/trash.svg";
+import { totalPriceItems } from "../functions/secondaryFunction";
+import { formatCurrency } from "../functions/secondaryFunction";
 
-const OrderItemStyled = styled.li `
+const OrderItemStyled = styled.li`
   display: flex;
   align-items: flex-end;
   margin: 15px 0;
@@ -10,20 +12,20 @@ const OrderItemStyled = styled.li `
   font-size: 18px;
 `;
 
-const ItemName = styled.span `
+const ItemName = styled.span`
   flex-grow: 1;
   font-size: 22px;
   padding-right: 10px;
 `;
 
-const ItemPrice = styled.span `
+const ItemPrice = styled.span`
   margin-left: 20px;
   margin-right: 10px;
   min-width: 65px;
   text-align: right;
 `;
 
-const TrashButton = styled.button `
+const TrashButton = styled.button`
   width: 24px;
   height: 24px;
   border-color: transparent;
@@ -35,23 +37,10 @@ const TrashButton = styled.button `
   cursor: pointer;
 `;
 
-export const OrderListItem = ({
-  order
-}) => ( <
-  OrderItemStyled >
-  <
-  ItemName > {
-    order.name
-  } < /ItemName> <
-  span > 2 < /span> <
-  ItemPrice > {
-    order.price.toLocaleString("en-IN", {
-      style: "currency",
-      currency: "AED",
-    })
-  } <
-  /ItemPrice> <
-  TrashButton / >
-  <
-  /OrderItemStyled>
+export const OrderListItem = ({ order }) => (
+  <OrderItemStyled>
+    <ItemName> {order.name} </ItemName> <span> 2 </span>{" "}
+    <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>{" "}
+    <TrashButton />
+  </OrderItemStyled>
 );
