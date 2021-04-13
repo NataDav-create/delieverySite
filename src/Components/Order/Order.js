@@ -33,7 +33,7 @@ const OrderList = styled.ul``;
 const Total = styled.div`
   display: flex;
   align-items: flex-end;
-  margin: 0 35px 30px;
+  margin: 30px 35px 30px;
   font-weight: 400;
 `;
 
@@ -57,6 +57,10 @@ export const Order = ({ orders }) => {
     (result, order) => totalPriceItems(order) + result,
     0
   );
+  const totalCounter = orders.reduce(
+    (result, order) => order.count + result,
+    0
+  );
   return (
     <OrderStyled>
       <OrderTitle> Your Order </OrderTitle>{" "}
@@ -74,7 +78,7 @@ export const Order = ({ orders }) => {
         )}{" "}
       </OrderContent>{" "}
       <Total>
-        <TotalHeading> Total: </TotalHeading> <span> 6 </span>{" "}
+        <TotalHeading> Total: </TotalHeading> <span> {totalCounter} </span>{" "}
         <TotalPrice>{formatCurrency(total)}</TotalPrice>{" "}
       </Total>{" "}
       <Button> Make an Order </Button>{" "}

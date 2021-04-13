@@ -5,6 +5,8 @@ import { Button } from "../Style/Button";
 import { useCount } from "../Hooks/useCount";
 import { totalPriceItems } from "../functions/secondaryFunction";
 import { formatCurrency } from "../functions/secondaryFunction";
+import { Toppings } from "./Toppings";
+import { useToppings } from "../Hooks/useToppings";
 
 const Overlay = styled.div`
   position: fixed;
@@ -21,7 +23,7 @@ const Overlay = styled.div`
 const Modal = styled.div`
   background-color: #fff;
   width: 600px;
-  height: 600px;
+  height: 700px;
 `;
 
 const Banner = styled.div`
@@ -38,14 +40,15 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 300px;
-  padding: 10px 15px;
+  height: 450px;
+  padding: 10px 30px;
 `;
 
 const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  margin-bottom: 30px;
 `;
 
 const ModalHeader = styled.h3`
@@ -62,12 +65,14 @@ const Price = styled.p`
 const TotalPriceItem = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
 // export const totalPriceItems = (order) => order.price * order.count;
 
 export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
   const counter = useCount();
+  const toppings = useToppings(openItem);
 
   const closeModal = (e) => {
     if (e.target.id === "overlay") {
@@ -78,6 +83,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
   const order = {
     ...openItem,
     count: counter.count,
+    topping: toppings.toppings,
   };
 
   const addToOrder = () => {
@@ -92,13 +98,14 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
         <Content>
           <HeaderContent>
             <ModalHeader> {openItem.name} </ModalHeader>{" "}
-            <Price>{formatCurrency(openItem.price)}</Price>{" "}
+            <Price> {formatCurrency(openItem.price)} </Price>{" "}
           </HeaderContent>{" "}
-          <CountItem {...counter} />{" "}
+          <CountItem {...counter} />
+          {openItem.toppings && <Toppings {...toppings} />}
           <TotalPriceItem>
             <span> Price: </span>{" "}
-            <span>{formatCurrency(totalPriceItems(order))}</span>{" "}
-          </TotalPriceItem>{" "}
+            <span> {formatCurrency(totalPriceItems(order))} </span>{" "}
+          </TotalPriceItem>
           <Button onClick={addToOrder}> Add to cart </Button>{" "}
         </Content>{" "}
       </Modal>{" "}
