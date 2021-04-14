@@ -15,4 +15,9 @@ transition: all 0.4s;
   background-color: #dfaa83;
   color: #000;
 }
+&:disabled {
+  color: #bbb;
+  background-color: #ccc;
+  border-color: #aaa;
+}
 `;

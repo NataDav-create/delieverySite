@@ -23,14 +23,22 @@ const ItemName = styled.span`
   padding-right: 10px;
 `;
 
-const ItemToppings = styled.div`
-  margin-top: 5px;
-`;
+// const ItemToppings = styled.div`
+//   margin-top: 5px;
+// `;
 
-const ItemTopping = styled.span`
+// const ItemTopping = styled.span`
+//   font-size: 15px;
+//   font-weight: 300;
+//   color: #333;
+//   margin-right: 5px;
+// `;
+
+const Toppings = styled.div`
+  display: flex;
+  color: #9a9a9a;
   font-size: 15px;
   font-weight: 300;
-  color: #333;
   margin-right: 5px;
 `;
 
@@ -53,21 +61,23 @@ const TrashButton = styled.button`
   cursor: pointer;
 `;
 
-export const OrderListItem = ({ order }) => (
-  <OrderItemStyled>
-    <ItemNameWrapper>
-      <ItemName>{order.name}</ItemName>
-      <ItemToppings>
-        {order.topping.map((item) => {
-          if (item.checked) {
-            return <ItemTopping>{item.name}</ItemTopping>;
-          }
-          return true;
-        })}
-      </ItemToppings>
-    </ItemNameWrapper>
-    <span> {order.count} </span>{" "}
-    <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>{" "}
-    <TrashButton />
-  </OrderItemStyled>
-);
+export const OrderListItem = ({ order, onDelete }) => {
+  const topping = order.topping
+    .filter((item) => item.checked)
+    .map((item) => item.name)
+    .join(", ");
+
+  return (
+    <OrderItemStyled>
+      <ItemNameWrapper>
+        <ItemName>
+          {order.name} {order.choice}
+        </ItemName>
+        {topping && <Toppings>Toppings: {topping}</Toppings>}
+      </ItemNameWrapper>
+      <span> {order.count} </span>{" "}
+      <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>{" "}
+      <TrashButton onClick={onDelete} />
+    </OrderItemStyled>
+  );
+};

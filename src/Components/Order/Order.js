@@ -52,7 +52,7 @@ const EmptyList = styled.p`
   text-align: center;
 `;
 
-export const Order = ({ orders }) => {
+export const Order = ({ orders, setOrders }) => {
   const total = orders.reduce(
     (result, order) => totalPriceItems(order) + result,
     0
@@ -61,6 +61,15 @@ export const Order = ({ orders }) => {
     (result, order) => order.count + result,
     0
   );
+  const onDelete = (id) => {
+    setOrders((orders) => {
+      const index = orders.findIndex((elem) => elem.id === id);
+      const before = orders.slice(0, index);
+      const after = orders.slice(index + 1);
+      const newArr = [...before, ...after];
+      return (orders = [...newArr]);
+    });
+  };
   return (
     <OrderStyled>
       <OrderTitle> Your Order </OrderTitle>{" "}
@@ -70,7 +79,9 @@ export const Order = ({ orders }) => {
           <OrderList>
             {" "}
             {orders.map((order) => (
-              <OrderListItem order={order}> </OrderListItem>
+              <OrderListItem order={order} onDelete={() => onDelete(order.id)}>
+                {" "}
+              </OrderListItem>
             ))}{" "}
           </OrderList>
         ) : (
