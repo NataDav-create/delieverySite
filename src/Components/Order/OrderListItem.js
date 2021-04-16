@@ -61,14 +61,20 @@ const TrashButton = styled.button`
   cursor: pointer;
 `;
 
-export const OrderListItem = ({ order, onDelete }) => {
+export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
   const topping = order.topping
     .filter((item) => item.checked)
     .map((item) => item.name)
     .join(", ");
 
+  const openEdit = (e) => {
+    if (e.target.tagName.toLowerCase() !== "button") {
+      setOpenItem({ ...order, index });
+    }
+  };
+
   return (
-    <OrderItemStyled>
+    <OrderItemStyled onClick={openEdit}>
       <ItemNameWrapper>
         <ItemName>
           {order.name} {order.choice}
@@ -77,7 +83,7 @@ export const OrderListItem = ({ order, onDelete }) => {
       </ItemNameWrapper>
       <span> {order.count} </span>{" "}
       <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>{" "}
-      <TrashButton onClick={onDelete} />
+      <TrashButton onClick={() => deleteItem(index)} />
     </OrderItemStyled>
   );
 };

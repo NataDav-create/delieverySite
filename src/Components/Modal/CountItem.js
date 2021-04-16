@@ -18,20 +18,20 @@ const ButtonCount = styled.button`
 export function CountItem({ count, setCount, onChange }) {
   return (
     <CountWrapper>
-      <span>amount</span>
+      <span> amount </span>{" "}
       <div>
         <ButtonCount disabled={count <= 1} onClick={() => setCount(count - 1)}>
           -
-        </ButtonCount>
+        </ButtonCount>{" "}
         <CountInput
           value={count < 1 ? 1 : count}
           type="number"
           min="1"
           max="100"
           onChange={onChange}
-        />
-        <ButtonCount onClick={() => setCount(count + 1)}>+</ButtonCount>
-      </div>
+        />{" "}
+        <ButtonCount onClick={() => setCount(count + 1)}> + </ButtonCount>{" "}
+      </div>{" "}
     </CountWrapper>
   );
 }

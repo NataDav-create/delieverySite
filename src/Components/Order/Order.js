@@ -52,7 +52,12 @@ const EmptyList = styled.p`
   text-align: center;
 `;
 
-export const Order = ({ orders, setOrders }) => {
+export const Order = ({ orders, setOrders, setOpenItem }) => {
+  const deleteItem = (index) => {
+    const newOrder = [...orders];
+    newOrder.splice(index, 1);
+    setOrders(newOrder);
+  };
   const total = orders.reduce(
     (result, order) => totalPriceItems(order) + result,
     0
@@ -61,15 +66,6 @@ export const Order = ({ orders, setOrders }) => {
     (result, order) => order.count + result,
     0
   );
-  const onDelete = (id) => {
-    setOrders((orders) => {
-      const index = orders.findIndex((elem) => elem.id === id);
-      const before = orders.slice(0, index);
-      const after = orders.slice(index + 1);
-      const newArr = [...before, ...after];
-      return (orders = [...newArr]);
-    });
-  };
   return (
     <OrderStyled>
       <OrderTitle> Your Order </OrderTitle>{" "}
@@ -77,12 +73,15 @@ export const Order = ({ orders, setOrders }) => {
         {" "}
         {orders.length ? (
           <OrderList>
-            {" "}
-            {orders.map((order) => (
-              <OrderListItem order={order} onDelete={() => onDelete(order.id)}>
-                {" "}
-              </OrderListItem>
-            ))}{" "}
+            {orders.map((order, index) => (
+              <OrderListItem
+                key={index}
+                order={order}
+                deleteItem={deleteItem}
+                index={index}
+                setOpenItem={setOpenItem}
+              ></OrderListItem>
+            ))}
           </OrderList>
         ) : (
           <EmptyList> There are no orders still </EmptyList>
