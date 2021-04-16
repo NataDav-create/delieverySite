@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import trashImage from "../../image/trash.svg";
 import { totalPriceItems } from "../functions/secondaryFunction";
@@ -10,6 +10,7 @@ const OrderItemStyled = styled.li`
   margin: 15px 0;
   font-weight: 400;
   font-size: 18px;
+  cursor: pointer;
 `;
 
 const ItemNameWrapper = styled.div`
@@ -22,17 +23,6 @@ const ItemName = styled.span`
   font-size: 22px;
   padding-right: 10px;
 `;
-
-// const ItemToppings = styled.div`
-//   margin-top: 5px;
-// `;
-
-// const ItemTopping = styled.span`
-//   font-size: 15px;
-//   font-weight: 300;
-//   color: #333;
-//   margin-right: 5px;
-// `;
 
 const Toppings = styled.div`
   display: flex;
@@ -67,14 +57,14 @@ export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
     .map((item) => item.name)
     .join(", ");
 
-  const openEdit = (e) => {
-    if (e.target.tagName.toLowerCase() !== "button") {
-      setOpenItem({ ...order, index });
-    }
-  };
+  const refDeleteButton = useRef(null);
 
   return (
-    <OrderItemStyled onClick={openEdit}>
+    <OrderItemStyled
+      onClick={(e) =>
+        e.target !== refDeleteButton.current && setOpenItem({ ...order, index })
+      }
+    >
       <ItemNameWrapper>
         <ItemName>
           {order.name} {order.choice}
@@ -83,7 +73,7 @@ export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
       </ItemNameWrapper>
       <span> {order.count} </span>{" "}
       <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>{" "}
-      <TrashButton onClick={() => deleteItem(index)} />
+      <TrashButton ref={refDeleteButton} onClick={() => deleteItem(index)} />
     </OrderItemStyled>
   );
 };

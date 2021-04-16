@@ -72,14 +72,8 @@ const TotalPriceItem = styled.div`
 
 // export const totalPriceItems = (order) => order.price * order.count;
 
-export const ModalItem = ({
-  openItem,
-  setOpenItem,
-  orders,
-  setOrders,
-  setCount,
-}) => {
-  const counter = useCount();
+export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
+  const counter = useCount(openItem.count);
   const toppings = useToppings(openItem);
   const choices = useChoices(openItem);
   const isEdit = openItem.index > -1;
@@ -117,7 +111,7 @@ export const ModalItem = ({
             <ModalHeader> {openItem.name} </ModalHeader>{" "}
             <Price> {formatCurrency(openItem.price)} </Price>{" "}
           </HeaderContent>{" "}
-          <CountItem {...counter} />
+          <CountItem {...counter} />{" "}
           {openItem.toppings && <Toppings {...toppings} />}{" "}
           {openItem.choices && <Choices {...choices} openItem={openItem} />}{" "}
           <TotalPriceItem>
@@ -128,7 +122,7 @@ export const ModalItem = ({
             onClick={isEdit ? editOrder : addToOrder}
             disabled={order.choices && !order.choice}
           >
-            {isEdit ? "Edit" : "Add to cart"}
+            {isEdit ? "Edit" : "Add to cart"}{" "}
           </Button>{" "}
         </Content>{" "}
       </Modal>{" "}
