@@ -44,6 +44,7 @@ const Login = styled.button`
   font-size: 16px;
   line-height: 19px;
   color: #fff;
+  font-weight: 300;
 `;
 
 const SigninBtnImg = styled.img`
@@ -51,15 +52,45 @@ const SigninBtnImg = styled.img`
   margin-bottom: 3px;
 `;
 
-export const NavBar = () => (
+const User = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+`;
+
+const Logout = styled.span`
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 30px;
+`;
+
+const Figure = styled.figure`
+  margin: 0 30px;
+  font-size: 16px;
+`;
+
+export const NavBar = ({ authentication, logIn, logOut }) => (
   <NavBarStyled>
     <Logo>
       <ImgLogo src={logoImg} alt="logo" />
       <H1> SushiLand </H1>{" "}
     </Logo>{" "}
-    <Login>
-      <SigninBtnImg src={signIn} alt="signin" />
-      Enter{" "}
-    </Login>{" "}
+    {authentication ? (
+      <User>
+        <Figure>
+          <SigninBtnImg src={signIn} alt={authentication.displayName} />
+          <figcaption>{authentication.displayName}</figcaption>
+        </Figure>
+        <Logout title="logout" onClick={logOut}>
+          X
+        </Logout>
+      </User>
+    ) : (
+      <Login onClick={logIn}>
+        <SigninBtnImg src={signIn} alt="signin" />
+        Login
+      </Login>
+    )}
   </NavBarStyled>
 );

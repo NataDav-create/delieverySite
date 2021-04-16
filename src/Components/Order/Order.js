@@ -52,7 +52,14 @@ const EmptyList = styled.p`
   text-align: center;
 `;
 
-export const Order = ({ orders, setOrders, setOpenItem }) => {
+export const Order = ({
+  orders,
+  setOrders,
+  setOpenItem,
+  authentication,
+  logIn,
+  logOut,
+}) => {
   const deleteItem = (index) => {
     const newOrder = [...orders];
     newOrder.splice(index, 1);
@@ -66,6 +73,9 @@ export const Order = ({ orders, setOrders, setOpenItem }) => {
     (result, order) => order.count + result,
     0
   );
+  // const makeOrder = () => {
+
+  // }
   return (
     <OrderStyled>
       <OrderTitle> Your Order </OrderTitle>{" "}
@@ -91,7 +101,10 @@ export const Order = ({ orders, setOrders, setOpenItem }) => {
         <TotalHeading> Total: </TotalHeading> <span> {totalCounter} </span>{" "}
         <TotalPrice>{formatCurrency(total)}</TotalPrice>{" "}
       </Total>{" "}
-      <Button> Make an Order </Button>{" "}
+      <Button onClick={authentication ? console.log("auth") : logIn}>
+        {" "}
+        Make an Order{" "}
+      </Button>
     </OrderStyled>
   );
 };
