@@ -79,17 +79,17 @@ export const NavBar = ({ authentication, logIn, logOut }) => (
     {authentication ? (
       <User>
         <Figure>
-          <SigninBtnImg src={signIn} alt={authentication.displayName} />
-          <figcaption>{authentication.displayName}</figcaption>
-        </Figure>
+          <SigninBtnImg src={signIn} alt={authentication.displayName} />{" "}
+          <figcaption> {authentication.displayName} </figcaption>{" "}
+        </Figure>{" "}
         <Logout title="logout" onClick={logOut}>
-          X
-        </Logout>
+          X{" "}
+        </Logout>{" "}
       </User>
     ) : (
       <Login onClick={logIn}>
         <SigninBtnImg src={signIn} alt="signin" />
-        Login
+        Login{" "}
       </Login>
     )}
   </NavBarStyled>

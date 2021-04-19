@@ -35,7 +35,7 @@ const MainSubtitle = styled.p`
   font-size: 30px;
 `;
 
-export const Menu = ({ setOpenItem }) => (
+export const Menu = ({ setOpenItem, title, setTitle }) => (
   <MenuStyled>
     <Banner>
       {" "}
@@ -49,7 +49,12 @@ export const Menu = ({ setOpenItem }) => (
       </SectionMenu>{" "}
       <SectionMenu>
         <h2> Sushi / Sashimi / Platter </h2>{" "}
-        <ListItem itemList={dbMenu.other} setOpenItem={setOpenItem} />{" "}
+        <ListItem
+          itemList={dbMenu.other}
+          setOpenItem={setOpenItem}
+          title={title}
+          setTitle={setTitle}
+        />{" "}
       </SectionMenu>{" "}
     </Container>{" "}
   </MenuStyled>

@@ -21,6 +21,7 @@ const Item = styled.li`
   font-weight: 400;
   font-size: 22px;
   z-index: 1;
+  transition: transform 0.4s;
   &:after {
     position: absolute;
     content: "";
@@ -35,6 +36,7 @@ const Item = styled.li`
   &:hover {
     cursor: pointer;
     box-shadow: inset 0 0 50px 30px rgba(0, 0, 0, 1);
+    transform: scale(1.1);
     &:after {
       opacity: 0;
     }
@@ -47,15 +49,16 @@ const Price = styled.p`
   color: #fff;
 `;
 
-export const ListItem = ({ itemList, setOpenItem }) => (
-  <List>
-    {" "}
-    {itemList.map((item) => {
-      return (
-        <Item key={item.id} img={item.img} onClick={() => setOpenItem(item)}>
-          <p> {item.name} </p> <Price>{formatCurrency(item.price)}</Price>
-        </Item>
-      );
-    })}{" "}
-  </List>
-);
+export const ListItem = ({ itemList, setOpenItem, title, setTitle }) => {
+  return (
+    <List>
+      {itemList.map((item) => {
+        return (
+          <Item key={item.id} img={item.img} onClick={() => setOpenItem(item)}>
+            <p> {item.name} </p> <Price>{formatCurrency(item.price)}</Price>
+          </Item>
+        );
+      })}{" "}
+    </List>
+  );
+};

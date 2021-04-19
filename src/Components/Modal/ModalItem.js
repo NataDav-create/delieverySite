@@ -70,6 +70,11 @@ const TotalPriceItem = styled.div`
   margin-bottom: 20px;
 `;
 
+const Amount = styled.span`
+  color: #612d0b;
+  font-weight: bold;
+`;
+
 // export const totalPriceItems = (order) => order.price * order.count;
 
 export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
@@ -102,6 +107,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
     setOrders([...orders, order]);
     setOpenItem(null);
   };
+
   return (
     <Overlay id="overlay" onClick={closeModal}>
       <Modal>
@@ -116,7 +122,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
           {openItem.choices && <Choices {...choices} openItem={openItem} />}{" "}
           <TotalPriceItem>
             <span> Price: </span>{" "}
-            <span> {formatCurrency(totalPriceItems(order))} </span>{" "}
+            <Amount> {formatCurrency(totalPriceItems(order))} </Amount>{" "}
           </TotalPriceItem>{" "}
           <Button
             onClick={isEdit ? editOrder : addToOrder}

@@ -6,20 +6,35 @@ const CountWrapper = styled.div`
   justify-content: space-between;
 `;
 
+const DivWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const CountInput = styled.input`
   width: 50px;
   font-size: 20px;
+  text-align: center;
 `;
 
 const ButtonCount = styled.button`
-  background-color: transparent;
+  background-color: rgb(153, 149, 149);
+  height: 100%;
+  width: 30px;
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.4s;
+  &:hover {
+    background-color: #df915d;
+  }
 `;
 
 export function CountItem({ count, setCount, onChange }) {
   return (
     <CountWrapper>
       <span> amount </span>{" "}
-      <div>
+      <DivWrapper>
         <ButtonCount disabled={count <= 1} onClick={() => setCount(count - 1)}>
           -
         </ButtonCount>{" "}
@@ -31,7 +46,7 @@ export function CountItem({ count, setCount, onChange }) {
           onChange={onChange}
         />{" "}
         <ButtonCount onClick={() => setCount(count + 1)}> + </ButtonCount>{" "}
-      </div>{" "}
+      </DivWrapper>{" "}
     </CountWrapper>
   );
 }
