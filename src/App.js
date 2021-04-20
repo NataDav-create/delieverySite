@@ -30,9 +30,9 @@ function App() {
   const auth = useAuth(firebase.auth);
   const openItem = useOpenItem();
   const orders = useOrders();
-  const titles = useTitle();
+  useTitle(openItem.openItem);
   const showOrders = useShowOrders();
-  document.title = titles.title;
+
   return (
     <React.Fragment>
       <GlobalStyle />
@@ -46,7 +46,7 @@ function App() {
           firebaseDatabase={firebase.database}
         />
       )}
-      <Menu {...openItem} {...titles} />{" "}
+      <Menu {...openItem} />{" "}
       {openItem.openItem && <ModalItem {...openItem} {...orders} />}{" "}
     </React.Fragment>
   );

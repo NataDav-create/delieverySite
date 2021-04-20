@@ -9,6 +9,7 @@ import closeImg from "../../image/sushi/katana.svg";
 
 const OrderStyled = styled.section`
   position: fixed;
+  display: none;
   top: 80px;
   left: 0;
   background: #fff;
@@ -132,7 +133,7 @@ export const Order = ({
           }}
         >
           <ImgBtn src={closeImg} alt="burger" />
-        </ButtonClose>
+        </ButtonClose>{" "}
         <OrderTitle> Your Order </OrderTitle>{" "}
         <OrderContent>
           {" "}
@@ -160,8 +161,8 @@ export const Order = ({
         <Button onClick={authentication ? sendOrder : logIn}>
           {" "}
           Make an Order{" "}
-        </Button>
-      </OrderWrapper>
+        </Button>{" "}
+      </OrderWrapper>{" "}
     </OrderStyled>
   );
 };

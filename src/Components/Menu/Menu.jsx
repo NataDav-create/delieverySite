@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import dbMenu from "../DBMenu2";
+// import dbMenu from "../DBMenu2";
 import { ListItem } from "./ListItem";
 import mainBg from "../../image/sushi/bg-5.jpg";
 import { Banner } from "./Banner";
+import { useFetch } from "../Hooks/useFetch";
+import "./Menu.css";
 
 const Container = styled.div`
   width: 1300px;
@@ -35,27 +37,52 @@ const MainSubtitle = styled.p`
   font-size: 30px;
 `;
 
-export const Menu = ({ setOpenItem, title, setTitle }) => (
-  <MenuStyled>
-    <Banner>
-      {" "}
-      <MainTitle> Traditional Rolls </MainTitle>{" "}
-      <MainSubtitle> Original and The Best </MainSubtitle>{" "}
-    </Banner>{" "}
-    <Container>
-      <SectionMenu>
-        <h2> Rolls </h2>{" "}
-        <ListItem itemList={dbMenu.burger} setOpenItem={setOpenItem} />{" "}
-      </SectionMenu>{" "}
-      <SectionMenu>
-        <h2> Sushi / Sashimi / Platter </h2>{" "}
-        <ListItem
-          itemList={dbMenu.other}
-          setOpenItem={setOpenItem}
-          title={title}
-          setTitle={setTitle}
-        />{" "}
-      </SectionMenu>{" "}
-    </Container>{" "}
-  </MenuStyled>
-);
+const ErrorWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  background-color: white;
+  color: #df915d;
+`;
+
+export const Menu = ({ setOpenItem }) => {
+  const res = useFetch();
+  const dbMenu = res.response;
+
+  return (
+    <MenuStyled>
+      <Banner>
+        <MainTitle> Traditional Rolls </MainTitle>{" "}
+        <MainSubtitle> Original and The Best </MainSubtitle>{" "}
+      </Banner>{" "}
+      {res.response ? (
+        <Container>
+          <SectionMenu>
+            <h2> Rolls </h2>{" "}
+            <ListItem itemList={dbMenu.burger} setOpenItem={setOpenItem} />{" "}
+          </SectionMenu>{" "}
+          <SectionMenu>
+            <h2> Sushi / Sashimi / Platter </h2>{" "}
+            <ListItem itemList={dbMenu.other} setOpenItem={setOpenItem} />{" "}
+          </SectionMenu>{" "}
+        </Container>
+      ) : res.error ? (
+        <ErrorWrapper>Sorry, we will fix it soon...</ErrorWrapper>
+      ) : (
+        <div className="loadingio-spinner-eclipse-q6n36tedzpc">
+          <div className="ldio-shl37mscv59">
+            <div></div>
+          </div>
+        </div>
+      )}
+    </MenuStyled>
+  );
+};
