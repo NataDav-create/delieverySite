@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { ListItem } from "./ListItem";
 import mainBg from "../../image/sushi/bg-5.jpg";
 import { Banner } from "./Banner";
-import { useFetch } from "../Hooks/useFetch";
+// import { useFetch } from "../Hooks/useFetch";
 import "./Menu.css";
 
 const Container = styled.div`
@@ -37,25 +37,25 @@ const MainSubtitle = styled.p`
   font-size: 30px;
 `;
 
-const ErrorWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-  background-color: white;
-  color: #df915d;
-`;
+// const ErrorWrapper = styled.div`
+//   position: fixed;
+//   top: 0;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: 50px;
+//   background-color: white;
+//   color: #df915d;
+// `;
 
-export const Menu = ({ setOpenItem }) => {
-  const res = useFetch();
-  const dbMenu = res.response;
+export const Menu = ({ setOpenItem, dbMenu }) => {
+  // const res = useFetch();
+  // const dbMenu = res.response;
 
   return (
     <MenuStyled>
@@ -63,7 +63,7 @@ export const Menu = ({ setOpenItem }) => {
         <MainTitle> Traditional Rolls </MainTitle>{" "}
         <MainSubtitle> Original and The Best </MainSubtitle>{" "}
       </Banner>{" "}
-      {res.response ? (
+      {dbMenu ? (
         <Container>
           <SectionMenu>
             <h2> Rolls </h2>{" "}
@@ -74,8 +74,6 @@ export const Menu = ({ setOpenItem }) => {
             <ListItem itemList={dbMenu.other} setOpenItem={setOpenItem} />{" "}
           </SectionMenu>{" "}
         </Container>
-      ) : res.error ? (
-        <ErrorWrapper>Sorry, we will fix it soon...</ErrorWrapper>
       ) : (
         <div className="loadingio-spinner-eclipse-q6n36tedzpc">
           <div className="ldio-shl37mscv59">

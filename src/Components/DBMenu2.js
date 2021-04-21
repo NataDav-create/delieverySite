@@ -1,5 +1,5 @@
 const dbMenu = {
-	burger: [{
+	rolls: [{
 			name: 'California Roll',
 			img: '/menu-sushi/1-1.jpg',
 			id: 1,
