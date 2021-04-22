@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { CountItem } from "./CountItem";
 import { Button } from "../Style/Button";
@@ -9,8 +9,9 @@ import { Toppings } from "./Toppings";
 import { Choices } from "./Choices";
 import { useToppings } from "../Hooks/useToppings";
 import { useChoices } from "../Hooks/useChoices";
+import { Context } from "../functions/context";
 
-const Overlay = styled.div`
+export const Overlay = styled.div`
   position: fixed;
   display: flex;
   justify-content: center;
@@ -77,7 +78,12 @@ const Amount = styled.span`
 
 // export const totalPriceItems = (order) => order.price * order.count;
 
-export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
+export const ModalItem = () => {
+  const {
+    openItem: { openItem, setOpenItem },
+    orders: { orders, setOrders },
+    showOrders: { setShowOrder },
+  } = useContext(Context);
   const counter = useCount(openItem.count);
   const toppings = useToppings(openItem);
   const choices = useChoices(openItem);
@@ -125,7 +131,14 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
             <Amount> {formatCurrency(totalPriceItems(order))} </Amount>{" "}
           </TotalPriceItem>{" "}
           <Button
-            onClick={isEdit ? editOrder : addToOrder}
+            onClick={() => {
+              if (isEdit) {
+                editOrder();
+              } else {
+                addToOrder();
+              }
+              setShowOrder(true);
+            }}
             disabled={order.choices && !order.choice}
           >
             {isEdit ? "Edit" : "Add to cart"}{" "}

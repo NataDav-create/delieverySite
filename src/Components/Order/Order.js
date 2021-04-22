@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Button } from "../Style/Button";
 import { OrderListItem } from "./OrderListItem";
 import { totalPriceItems } from "../functions/secondaryFunction";
 import { formatCurrency } from "../functions/secondaryFunction";
-import { projection } from "../functions/secondaryFunction";
 import closeImg from "../../image/sushi/katana.svg";
+import { Context } from "../functions/context";
 
 const OrderStyled = styled.section`
   position: fixed;
@@ -27,7 +27,7 @@ const OrderWrapper = styled.section`
   padding: 40px 15px;
 `;
 
-const OrderTitle = styled.h2`
+export const OrderTitle = styled.h2`
   text-align: center;
   margin-bottom: 30px;
 `;
@@ -38,7 +38,7 @@ const OrderContent = styled.div`
 
 const OrderList = styled.ul``;
 
-const Total = styled.div`
+export const Total = styled.div`
   display: flex;
   align-items: flex-end;
   margin: 30px 35px 30px;
@@ -50,7 +50,7 @@ const TotalHeading = styled.h3`
   flex-grow: 1;
 `;
 
-const TotalPrice = styled.span`
+export const TotalPrice = styled.span`
   text-align: right;
   min-width: 65px;
   margin-left: 20px;
@@ -60,18 +60,7 @@ const EmptyList = styled.p`
   text-align: center;
 `;
 
-const rulesData = {
-  itemName: ["name"],
-  price: ["price"],
-  count: ["count"],
-  topping: [
-    "topping",
-    (arr) => arr.filter((obj) => obj.checked).map((obj) => obj.name),
-    (arr) => (arr.length ? arr : "no topping"),
-  ],
-  choice: ["choice", (item) => (item ? item : "no choices")],
-};
-const ButtonClose = styled.button`
+export const ButtonClose = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
@@ -84,30 +73,20 @@ const ButtonClose = styled.button`
   align-items: center;
 `;
 
-const ImgBtn = styled.img`
+export const ImgBtn = styled.img`
   width: 25px;
   height: 25px;
   object-fit: cover;
 `;
 
-export const Order = ({
-  orders,
-  setOrders,
-  setOpenItem,
-  authentication,
-  logIn,
-  database,
-  setShowOrder,
-}) => {
-  const sendOrder = () => {
-    const newOrder = orders.map(projection(rulesData));
-    database.ref("orders").push().set({
-      nameClient: authentication.displayName,
-      email: authentication.email,
-      order: newOrder,
-    });
-    setOrders([]);
-  };
+export const Order = () => {
+  const {
+    openItem: { setOpenItem },
+    auth: { authentication, logIn },
+    orders: { orders, setOrders },
+    orderConfirm: { setOpenOrderConfirm },
+    showOrders: { setShowOrder },
+  } = useContext(Context);
   const deleteItem = (index) => {
     const newOrder = [...orders];
     newOrder.splice(index, 1);
@@ -125,13 +104,9 @@ export const Order = ({
   return (
     <OrderStyled>
       <OrderWrapper>
-        <ButtonClose
-          onClick={() => {
-            setShowOrder(false);
-          }}
-        >
+        <ButtonClose onClick={() => setShowOrder(false)}>
           <ImgBtn src={closeImg} alt="burger" />
-        </ButtonClose>
+        </ButtonClose>{" "}
         <OrderTitle> Your Order </OrderTitle>{" "}
         <OrderContent>
           {" "}
@@ -156,11 +131,19 @@ export const Order = ({
           <TotalHeading> Total: </TotalHeading> <span> {totalCounter} </span>{" "}
           <TotalPrice> {formatCurrency(total)} </TotalPrice>{" "}
         </Total>{" "}
-        <Button onClick={authentication ? sendOrder : logIn}>
+        <Button
+          onClick={() => {
+            if (authentication) {
+              setOpenOrderConfirm(true);
+            } else {
+              logIn();
+            }
+          }}
+        >
           {" "}
           Make an Order{" "}
-        </Button>
-      </OrderWrapper>
+        </Button>{" "}
+      </OrderWrapper>{" "}
     </OrderStyled>
   );
 };

@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-// import logoImg from "../image/logo.svg";
 import logoImg from "../../image/sushi/logo.svg";
-// import signIn from "../image/sign.svg";
 import signIn from "../../image/sushi/samurai.svg";
+import { Context } from "../functions/context";
 
 const NavBarStyled = styled.header`
   position: fixed;
@@ -70,27 +69,32 @@ const Figure = styled.figure`
   font-size: 16px;
 `;
 
-export const NavBar = ({ authentication, logIn, logOut }) => (
-  <NavBarStyled>
-    <Logo>
-      <ImgLogo src={logoImg} alt="logo" />
-      <H1> SushiLand </H1>{" "}
-    </Logo>{" "}
-    {authentication ? (
-      <User>
-        <Figure>
-          <SigninBtnImg src={signIn} alt={authentication.displayName} />{" "}
-          <figcaption> {authentication.displayName} </figcaption>{" "}
-        </Figure>{" "}
-        <Logout title="logout" onClick={logOut}>
-          X{" "}
-        </Logout>{" "}
-      </User>
-    ) : (
-      <Login onClick={logIn}>
-        <SigninBtnImg src={signIn} alt="signin" />
-        Login{" "}
-      </Login>
-    )}
-  </NavBarStyled>
-);
+export const NavBar = () => {
+  const {
+    auth: { authentication, logIn, logOut },
+  } = useContext(Context);
+  return (
+    <NavBarStyled>
+      <Logo>
+        <ImgLogo src={logoImg} alt="logo" />
+        <H1> SushiLand </H1>{" "}
+      </Logo>{" "}
+      {authentication ? (
+        <User>
+          <Figure>
+            <SigninBtnImg src={signIn} alt={authentication.displayName} />{" "}
+            <figcaption> {authentication.displayName} </figcaption>{" "}
+          </Figure>{" "}
+          <Logout title="logout" onClick={logOut}>
+            X{" "}
+          </Logout>{" "}
+        </User>
+      ) : (
+        <Login onClick={logIn}>
+          <SigninBtnImg src={signIn} alt="signin" />
+          Login{" "}
+        </Login>
+      )}{" "}
+    </NavBarStyled>
+  );
+};

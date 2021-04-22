@@ -13,6 +13,10 @@ import { useAuth } from "./Components/Hooks/useAuth";
 import { useTitle } from "./Components/Hooks/useTitle";
 import { useShowOrders } from "./Components/Hooks/useShowOrders";
 import { useDB } from "./Components/Hooks/useDB";
+import { OrderConfirm } from "./Components/Order/OrderConfirm";
+import { useOrderConfirm } from "./Components/Hooks/useOrderConfirm";
+import { Context } from "./Components/functions/context";
+import { useModal } from "./Components/Hooks/useModal";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDLoY4qQocj5NBol8TVHcDq-DZc60CJNtQ",
@@ -35,23 +39,27 @@ function App() {
   useTitle(openItem.openItem);
   const dbMenu = useDB(database);
   const showOrders = useShowOrders();
+  const orderConfirm = useOrderConfirm();
+  const modalThanks = useModal();
 
   return (
-    <React.Fragment>
+    <Context.Provider
+      value={{
+        auth,
+        openItem,
+        orders,
+        orderConfirm,
+        showOrders,
+        database,
+        modalThanks,
+      }}
+    >
       <GlobalStyle />
-      <NavBar {...auth} />
-      {showOrders.showOrder && (
-        <Order
-          {...orders}
-          {...openItem}
-          {...auth}
-          {...showOrders}
-          database={database}
-        />
-      )}
-      <Menu {...openItem} dbMenu={dbMenu} />{" "}
-      {openItem.openItem && <ModalItem {...openItem} {...orders} />}{" "}
-    </React.Fragment>
+      <NavBar />
+      {showOrders.showOrder && <Order />}
+      <Menu dbMenu={dbMenu} /> {openItem.openItem && <ModalItem />}
+      {orderConfirm.openOrderConfirm && <OrderConfirm database={database} />}
+    </Context.Provider>
   );
 }
 
