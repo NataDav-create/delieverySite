@@ -59,12 +59,7 @@ export const OrderConfirm = ({ database }) => {
     (result, order) => totalPriceItems(order) + result,
     0
   );
-  // useEffect(() => {
-  //   let modalThanks = setTimeout(() => {
-  //     setOpenOrderConfirm(false);
-  //   }, 1000);
-  //   return () => clearInterval(modalThanks);
-  // }, [setOpenOrderConfirm]);
+
   return (
     <Overlay>
       {!openModalThanks && (

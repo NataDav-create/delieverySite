@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import bgImg from "../../image/sushi/1.jpg";
+import bgImg from "../../image/sushi/8.jpg";
 
 export const Banner = styled.div `
   width: 100%;
@@ -11,6 +11,7 @@ export const Banner = styled.div `
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-left: 200px;
 `;

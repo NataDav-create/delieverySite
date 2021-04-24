@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { formatCurrency } from "../functions/secondaryFunction";
+import { Context } from "../functions/context";
 
 const List = styled.ul`
   display: flex;
@@ -11,7 +12,8 @@ const Item = styled.li`
   position: relative;
   width: 400px;
   height: 200px;
-  background-image: ${({ img }) => `url(${img})`};
+  background-image: ${({ img }) => `url(${img})
+`};
   background-position: center;
   background-size: cover;
   margin-top: 30px;
@@ -49,9 +51,13 @@ const Price = styled.p`
   color: #fff;
 `;
 
-export const ListItem = ({ itemList, setOpenItem, title, setTitle }) => {
+export const ListItem = ({ itemList }) => {
+  const {
+    openItem: { setOpenItem },
+  } = useContext(Context);
   return (
     <List>
+      {" "}
       {itemList.map((item) => {
         return (
           <Item key={item.id} img={item.img} onClick={() => setOpenItem(item)}>

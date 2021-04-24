@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import styled from "styled-components";
 import trashImage from "../../image/trash.svg";
 import { totalPriceItems } from "../functions/secondaryFunction";
 import { formatCurrency } from "../functions/secondaryFunction";
+import { Context } from "../functions/context";
 
 const OrderItemStyled = styled.li`
   display: flex;
@@ -51,7 +52,10 @@ const TrashButton = styled.button`
   cursor: pointer;
 `;
 
-export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
+export const OrderListItem = ({ order, index, deleteItem }) => {
+  const {
+    openItem: { setOpenItem },
+  } = useContext(Context);
   const topping = order.topping
     .filter((item) => item.checked)
     .map((item) => item.name)
@@ -62,18 +66,23 @@ export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
   return (
     <OrderItemStyled
       onClick={(e) =>
-        e.target !== refDeleteButton.current && setOpenItem({ ...order, index })
+        e.target !== refDeleteButton.current &&
+        setOpenItem({
+          ...order,
+          index,
+        })
       }
     >
       <ItemNameWrapper>
         <ItemName>
-          {order.name} {order.choice}
-        </ItemName>
-        {topping && <Toppings>Toppings: {topping}</Toppings>}
-      </ItemNameWrapper>
+          {" "}
+          {order.name} {order.choice}{" "}
+        </ItemName>{" "}
+        {topping && <Toppings> Toppings: {topping} </Toppings>}{" "}
+      </ItemNameWrapper>{" "}
       <span> {order.count} </span>{" "}
-      <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>{" "}
-      <TrashButton ref={refDeleteButton} onClick={() => deleteItem(index)} />
+      <ItemPrice> {formatCurrency(totalPriceItems(order))} </ItemPrice>{" "}
+      <TrashButton ref={refDeleteButton} onClick={() => deleteItem(index)} />{" "}
     </OrderItemStyled>
   );
 };

@@ -17,6 +17,7 @@ import { OrderConfirm } from "./Components/Order/OrderConfirm";
 import { useOrderConfirm } from "./Components/Hooks/useOrderConfirm";
 import { Context } from "./Components/functions/context";
 import { useModal } from "./Components/Hooks/useModal";
+import { OrderMenuFixed } from "./Components/Order/OrderMenu";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDLoY4qQocj5NBol8TVHcDq-DZc60CJNtQ",
@@ -55,10 +56,11 @@ function App() {
       }}
     >
       <GlobalStyle />
-      <NavBar />
-      {showOrders.showOrder && <Order />}
+      <NavBar /> {showOrders.showOrder ? <Order /> : <OrderMenuFixed />}
       <Menu dbMenu={dbMenu} /> {openItem.openItem && <ModalItem />}
-      {orderConfirm.openOrderConfirm && <OrderConfirm database={database} />}
+      {orderConfirm.openOrderConfirm && (
+        <OrderConfirm database={database} />
+      )}{" "}
     </Context.Provider>
   );
 }

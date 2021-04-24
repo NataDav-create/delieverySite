@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 // import dbMenu from "../DBMenu2";
 import { ListItem } from "./ListItem";
@@ -6,7 +6,7 @@ import mainBg from "../../image/sushi/bg-5.jpg";
 import { Banner } from "./Banner";
 // import { useFetch } from "../Hooks/useFetch";
 import "./Menu.css";
-import { Context } from "../functions/context";
+// import { Context } from "../functions/context";
 
 const Container = styled.div`
   width: 1300px;
@@ -57,9 +57,9 @@ const MainSubtitle = styled.p`
 export const Menu = ({ dbMenu }) => {
   // const res = useFetch();
   // const dbMenu = res.response;
-  const {
-    openItem: { setOpenItem },
-  } = useContext(Context);
+  // const {
+  //   openItem: { setOpenItem },
+  // } = useContext(Context);
   return (
     <MenuStyled>
       <Banner>
@@ -69,12 +69,11 @@ export const Menu = ({ dbMenu }) => {
       {dbMenu ? (
         <Container>
           <SectionMenu>
-            <h2> Rolls </h2>{" "}
-            <ListItem itemList={dbMenu.burger} setOpenItem={setOpenItem} />{" "}
+            <h2> Rolls </h2> <ListItem itemList={dbMenu.burger} />{" "}
           </SectionMenu>{" "}
           <SectionMenu>
             <h2> Sushi / Sashimi / Platter </h2>{" "}
-            <ListItem itemList={dbMenu.other} setOpenItem={setOpenItem} />{" "}
+            <ListItem itemList={dbMenu.other} />{" "}
           </SectionMenu>{" "}
         </Container>
       ) : (

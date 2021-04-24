@@ -81,7 +81,6 @@ export const ImgBtn = styled.img`
 
 export const Order = () => {
   const {
-    openItem: { setOpenItem },
     auth: { authentication, logIn },
     orders: { orders, setOrders },
     orderConfirm: { setOpenOrderConfirm },
@@ -119,7 +118,6 @@ export const Order = () => {
                   order={order}
                   deleteItem={deleteItem}
                   index={index}
-                  setOpenItem={setOpenItem}
                 ></OrderListItem>
               ))}{" "}
             </OrderList>
@@ -127,22 +125,26 @@ export const Order = () => {
             <EmptyList> There are no orders still </EmptyList>
           )}{" "}
         </OrderContent>{" "}
-        <Total>
-          <TotalHeading> Total: </TotalHeading> <span> {totalCounter} </span>{" "}
-          <TotalPrice> {formatCurrency(total)} </TotalPrice>{" "}
-        </Total>{" "}
-        <Button
-          onClick={() => {
-            if (authentication) {
-              setOpenOrderConfirm(true);
-            } else {
-              logIn();
-            }
-          }}
-        >
-          {" "}
-          Make an Order{" "}
-        </Button>{" "}
+        {orders.length ? (
+          <>
+            <Total>
+              <TotalHeading> Total: </TotalHeading>{" "}
+              <span> {totalCounter} </span>{" "}
+              <TotalPrice> {formatCurrency(total)} </TotalPrice>{" "}
+            </Total>{" "}
+            <Button
+              onClick={() => {
+                if (authentication) {
+                  setOpenOrderConfirm(true);
+                } else {
+                  logIn();
+                }
+              }}
+            >
+              Make an Order{" "}
+            </Button>
+          </>
+        ) : null}
       </OrderWrapper>{" "}
     </OrderStyled>
   );
